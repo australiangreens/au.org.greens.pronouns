@@ -53,12 +53,10 @@ function pronouns_civicrm_buildForm($formName, $form) {
       }
       $currentClass .= 'pronoun_custom_field_text_box';
       $form->getElement('custom_' . $customField['id'])->updateAttributes(['class' => $currentClass]);
-      $form->addElement('Select', 'pronoun_options', ts('Pronouns'),
+      $form->add('select2', 'pronoun_options', ts('Pronouns'),
         [
           0 => ts('- select -'),
         ] + $options,
-        FALSE,
-        ['class' => "crm-select2"]
       );
       CRM_Core_Region::instance('form-bottom')->add(array(
         'template' => 'pronoun_options.tpl'
