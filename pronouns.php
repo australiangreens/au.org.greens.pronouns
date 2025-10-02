@@ -42,9 +42,15 @@ function pronouns_civicrm_buildForm($formName, $form) {
     $options = [];
     $pronounOptions = civicrm_api3('OptionValue', 'get', ['option_group_id' => 'pronouns', ['return' => ['label', 'value']]]);
     foreach ($pronounOptions['values'] as $option) {
-      $options[$option['value']] = $option['label'];
+      $options[] = [
+        'text' => $option['label'],
+        'id' => $option['value'],
+      ];
     }
-    $options[] = E::ts('Other');
+    $options[] = [
+      'text' => E::ts('Other'),
+      'id' => 0,
+    ];
     $customField = civicrm_api3('CustomField', 'get', ['name' => 'pronoun']);
     if ($form->elementExists('custom_' . $customField['id'])) {
       $currentClass = $form->getElement('custom_' . $customField['id'])->getAttribute('class');
@@ -55,12 +61,15 @@ function pronouns_civicrm_buildForm($formName, $form) {
       $form->getElement('custom_' . $customField['id'])->updateAttributes(['class' => $currentClass]);
       $form->add('select2', 'pronoun_options', ts('Pronouns'),
         [
-          0 => ts('- select -'),
+          [
+            'id' => 0,
+            'text' => E::ts('- select -'),
+          ],
         ] + $options,
       );
-      CRM_Core_Region::instance('form-bottom')->add(array(
+      CRM_Core_Region::instance('form-bottom')->add([
         'template' => 'pronoun_options.tpl'
-       ));
+       ]);
       CRM_Core_Resources::singleton()->addScriptFile('au.org.greens.pronouns', 'js/pronoun.js');
     }
   }
