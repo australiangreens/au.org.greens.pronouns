@@ -66,7 +66,8 @@ function pronouns_civicrm_buildForm($formName, $form) {
       CRM_Core_Region::instance('form-bottom')->add(array(
         'template' => 'pronoun_options.tpl'
        ));
-      CRM_Core_Resources::singleton()->addScriptFile('au.org.greens.pronouns', 'js/pronoun.js');
+      CRM_Core_Resources::singleton()->addScriptFile(E::LONG_NAME, 'js/pronoun.js');
+      CRM_Core_Resources::singleton()->addStyleFile(E::LONG_NAME, 'css/styleguide_contriubtion_form_fix.css');
     }
   }
 }
