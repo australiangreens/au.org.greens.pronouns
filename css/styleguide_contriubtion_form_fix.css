@@ -1,0 +1,4 @@
+/** Adds in modification to make the select2 field look fine on the main step of contribution forms but not on standalone profile pages*/
+body:not(.page-civicrm-profile) .editrow_pronoun_options .select2-container.custom-select-select2 .select2-choice > .select2-chosen {
+  padding: inherit;
+}

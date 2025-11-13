@@ -6,7 +6,7 @@ use CRM_Pronouns_ExtensionUtil as E;
 /**
  * Implements hook_civicrm_config().
  *
- * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_config/ 
+ * @link https://docs.civicrm.org/dev/en/latest/hooks/hook_civicrm_config/
  */
 function pronouns_civicrm_config(&$config) {
   _pronouns_civix_civicrm_config($config);
@@ -42,9 +42,18 @@ function pronouns_civicrm_buildForm($formName, $form) {
     $options = [];
     $pronounOptions = civicrm_api3('OptionValue', 'get', ['option_group_id' => 'pronouns', ['return' => ['label', 'value']]]);
     foreach ($pronounOptions['values'] as $option) {
-      $options[$option['value']] = $option['label'];
+      $options[$option['value']] = [
+        'label' => $option['label'],
+        'id' => $option['value'],
+        'name' => $option['label'],
+      ];
     }
-    $options[] = E::ts('Other');
+    $options[] = ['label' => E::ts('Other'), 'id' => '', 'name' => 'other'];
+    foreach ($options as $key => $option) {
+      if ($option['name'] == 'other') {
+        $options[$key]['id'] = $key;
+      }
+    }
     $customField = civicrm_api3('CustomField', 'get', ['name' => 'pronoun']);
     if ($form->elementExists('custom_' . $customField['id'])) {
       $currentClass = $form->getElement('custom_' . $customField['id'])->getAttribute('class');
@@ -53,21 +62,16 @@ function pronouns_civicrm_buildForm($formName, $form) {
       }
       $currentClass .= 'pronoun_custom_field_text_box';
       $form->getElement('custom_' . $customField['id'])->updateAttributes(['class' => $currentClass]);
-      $form->addElement('Select', 'pronoun_options', ts('Pronouns'),
-        [
-          0 => ts('- select -'),
-        ] + $options,
-        FALSE,
-        ['class' => "crm-select2"]
-      );
+      $form->add('select2', 'pronoun_options', E::ts('Pronouns'), $options, FALSE, ['placeholder' => E::ts('- select -')]);
       CRM_Core_Region::instance('form-bottom')->add(array(
         'template' => 'pronoun_options.tpl'
        ));
-      CRM_Core_Resources::singleton()->addScriptFile('au.org.greens.pronouns', 'js/pronoun.js');
+      CRM_Core_Resources::singleton()->addScriptFile(E::LONG_NAME, 'js/pronoun.js');
+      CRM_Core_Resources::singleton()->addStyleFile(E::LONG_NAME, 'css/styleguide_contriubtion_form_fix.css');
     }
   }
 }
- 
+
 
 // --- Functions below this ship commented out. Uncomment as required. ---
 
