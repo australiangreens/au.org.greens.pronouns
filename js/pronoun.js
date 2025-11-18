@@ -4,7 +4,7 @@
   $('#pronoun_custom_options').append('<div id="pronoun_custom_field"></div>');
   $('#pronoun_custom_field').append(pronoun_custom_field);
   let pronoun_options = $('.editrow_pronoun_options');
-  $('#pronoun_custom_options').append(pronoun_options);
+  $('#pronoun_custom_options').prepend(pronoun_options);
   $('#pronoun_custom_field').hide();
   //if (CRM.vars.pronouns.profile) {
   //  $('#profile-submit-buttons').append($('.crm-submit-buttons'));
