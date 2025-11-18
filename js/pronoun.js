@@ -1,6 +1,7 @@
 (function($) {
   let pronoun_custom_field = $('.pronoun_custom_field_text_box').parent().parent();
-  pronoun_custom_field.wrap('<div id="pronoun_custom_options"></div><div id="pronoun_custom_field"></div><div id="profile-submit-buttons"></div>');
+  pronoun_custom_field.wrap('<div id="pronoun_custom_options"></div>');
+  $('#pronoun_custom_options').append('<div id="pronoun_custom_field"></div>');
   $('#pronoun_custom_field').append(pronoun_custom_field);
   let pronoun_options = $('.editrow_pronoun_options');
   $('#pronoun_custom_options').append(pronoun_options);
