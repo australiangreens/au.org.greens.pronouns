@@ -1,14 +1,13 @@
 (function($) {
   let pronoun_custom_field = $('.pronoun_custom_field_text_box').parent().parent();
-  let fieldSet =  $('.pronoun_custom_field_text_box').parent().parent().parent();
-  fieldSet.append('<div id="pronoun_custom_options"></div><div id="pronoun_custom_field"></div><div id="profile-submit-buttons"></div>');
+  pronoun_custom_field.wrap('<div id="pronoun_custom_options"></div><div id="pronoun_custom_field"></div><div id="profile-submit-buttons"></div>');
   $('#pronoun_custom_field').append(pronoun_custom_field);
   let pronoun_options = $('.editrow_pronoun_options');
   $('#pronoun_custom_options').append(pronoun_options);
   $('#pronoun_custom_field').hide();
-  if (CRM.vars.pronouns.profile) {
-    $('#profile-submit-buttons').append($('.crm-submit-buttons'));
-  }
+  //if (CRM.vars.pronouns.profile) {
+  //  $('#profile-submit-buttons').append($('.crm-submit-buttons'));
+  //}
   let pronoun_options_input_field = $('.editrow_pronoun_options').find('input[name=pronoun_options]');
   pronoun_options_input_field.on('change', function() {
     let pronoun = $('.editrow_pronoun_options').find('.select2-chosen').text();
