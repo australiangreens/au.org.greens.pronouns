@@ -32,13 +32,6 @@ function pronouns_civicrm_enable() {
 
 function pronouns_civicrm_buildForm($formName, $form) {
   if ($formName != 'CRM_Contribute_Form_Contribution_Confirm' || $formName == 'CRM_Contribute_Form_Contribution_ThankYou') {
-    if ($formName == 'CRM_Profile_Form_Edit') {
-      $profile = TRUE;
-    }
-    else {
-      $profile = FALSE;
-    }
-    CRM_Core_Resources::singleton()->addVars('pronouns', ['profile' => $profile]);
     $options = [];
     $pronounOptions = civicrm_api3('OptionValue', 'get', ['option_group_id' => 'pronouns', ['return' => ['label', 'value']]]);
     foreach ($pronounOptions['values'] as $option) {

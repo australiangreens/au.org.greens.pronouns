@@ -6,9 +6,6 @@
   let pronoun_options = $('.editrow_pronoun_options');
   $('#pronoun_custom_options').prepend(pronoun_options);
   $('#pronoun_custom_field').hide();
-  //if (CRM.vars.pronouns.profile) {
-  //  $('#profile-submit-buttons').append($('.crm-submit-buttons'));
-  //}
   let pronoun_options_input_field = $('.editrow_pronoun_options').find('input[name=pronoun_options]');
   pronoun_options_input_field.on('change', function() {
     let pronoun = $('.editrow_pronoun_options').find('.select2-chosen').text();
